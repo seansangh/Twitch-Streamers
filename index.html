@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+ 
+  $('.two').on("click",function(){
+     $('.two').addClass('a')
+     $('.two').removeClass('b')    
+     $('.one').removeClass('a') 
+     $('.one').addClass('b')
+     $('.three').removeClass('a') 
+     $('.three').addClass('b')
+     $('.online').css('display','none')
+     $('.offline').css('display','inline')
+  })
+  
+  $('.three').on("click",function(){
+     $('.three').addClass('a')
+     $('.three').removeClass('b')    
+     $('.one').removeClass('a') 
+     $('.one').addClass('b')
+     $('.two').removeClass('a') 
+     $('.two').addClass('b')    
+     $('.offline').css('display','none')
+     $('.online').css('display','inline')
+  })
+  
+  $('.one').on("click",function(){
+     $('.one').addClass('a')
+     $('.one').removeClass('b')    
+     $('.three').removeClass('a') 
+     $('.three').addClass('b')
+     $('.two').removeClass('a') 
+     $('.two').addClass('b')
+     $('.offline').css('display','inline')
+     $('.online').css('display','inline')    
+  })
+  
+$.ajax({
+  url: "https://api.twitch.tv/kraken/streams/freecodecamp",
+  type:'GET',
+  headers:{
+    'Client-ID': 'lpcfra5atdz9k7jtdldz5729cfh4zua'
+  },
+  success: function(data1){
+    debugger;
+    if (data1.stream === null) {
+      //FCC Offline
+      $("#fccStatus").html("<div class ='col-xs-12 offline'><div class='col-xs-3'><a href='https://www.twitch.tv/freecodecamp'><img id='ima' src='https://avatars0.githubusercontent.com/u/9892522?v=4&s=50'></img></a></div><div class='col-xs-3 mo'>FreeCodeCamp</div><div class='col-xs-6 mo'>Free Code Camp is currently OFFLINE</div></div>");
+    } else {
+      //FCC Online
+      $("#fccStatus").html("<div class ='col-xs-12 offline'><div class='col-xs-3'><a href='https://www.twitch.tv/freecodecamp'><img id='ima' src='https://avatars0.githubusercontent.com/u/9892522?v=4&s=50'></img></a></div><div class='col-xs-3 mo'>FreeCodeCamp</div><div class='col-xs-6 mo'>Free Code Camp is currently ONLINE playing "+data1.stream.game+"</div></div>");
+    }
+  }  
+  
+})
+  
+$.ajax({
+  url: "https://api.twitch.tv/kraken/streams/ESL_SC2",
+  type:'GET',
+  headers:{
+    'Client-ID': 'lpcfra5atdz9k7jtdldz5729cfh4zua'
+  },
+  success: function(data1){
+    debugger;
+    if (data1.stream === null) {
+      //FCC Offline
+      $("#fccStatus2").html("<div class ='col-xs-12 offline'><div class='col-xs-3'><a href='https://www.twitch.tv/esl_sc2'><img class='ima2' id='ima' src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/ESL_Light_Horizontal_Logo.svg/70px-ESL_Light_Horizontal_Logo.svg.png'></img></a></div><div class='col-xs-3 mo'>ESL_SC2</div><div class='col-xs-6 mo'>ESL_SC2 is currently OFFLINE</div></div>");
+    } else {
+      //FCC Online
+      $("#fccStatus2").html("<div class ='col-xs-12 online'><div class='col-xs-3'><a href='https://www.twitch.tv/esl_sc2'><img class='ima2' id='ima' src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/ESL_Light_Horizontal_Logo.svg/70px-ESL_Light_Horizontal_Logo.svg.png'></img></a></div><div class='col-xs-3 mo'>ESL_SC2</div><div class='col-xs-6 mo'>ESL_SC2 is currently ONLINE playing "+data1.stream.game+"</div></div>");
+    }
+  }  
+}) 
+  
+})
+    </script>
+  </head>
+  <body>
+    <div id="outside">
+      <div id="inside">
+        <div id="top" class="fluid-container">
+          <div class="col-xs-6">
+            <h1>Twitch Streamers</h1>
+          </div>
+          <div class="col-xs-6">
+            <p class="one a"> <i id="one" class="fa fa-circle"></i> <m1>All</m1></p><p class="two b"> <i id="two" class="fa fa-circle"></i> <m2>Online</m2></p><p class="three b"> <i id="three" class="fa fa-circle"></i> <m3>Offline</m3></p>
+          </div>
+        </div>
+        <div id="twitch">
+         <div id="fccStatus">
+         </div>   
+          <div id="fccStatus2">
+         </div>      
+       </div>
+      </div>
+    </div>
+  </body>
+</html>
